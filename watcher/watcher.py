@@ -8,10 +8,11 @@ class Watcher:
             file.write(content)
 
 
-    def send_telegram(self, message):
+    def send_telegram(self, watcher_name, message):
         chat_ids = config.chat_ids
         for chat_id in chat_ids:
-            requests.get("https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(config.bot_password, chat_id, message))
+            payload = { 'chat_id': chat_id, 'text': '[{0}]: {1}'.format(watcher_name, message) }
+            requests.get("https://api.telegram.org/bot{0}/sendMessage".format(config.bot_password), params=payload)
 
     def parse_site(self):
         raise NotImplementedError("Implement this method")
