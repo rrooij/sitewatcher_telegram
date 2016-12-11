@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from watcher.watcher import Watcher
 
 class PepperWatcher(Watcher):
-
+    watcher_name = 'Pepper'
     filename = 'site_pepper.txt'
 
     def parse_site(self):
@@ -18,7 +18,7 @@ class PepperWatcher(Watcher):
 
     def check_price_error(self):
         articles = self.parse_site()
-        message_text = 'PRIJSFOUT GEVONDEN: {0}'.format(articles)
+        message_text = 'PRIJSFOUT GEVONDEN OP PEPPER: {0}'.format(articles)
 
         if not os.path.isfile(self.filename):
             self.write_to_file(self.filename, articles)
@@ -28,5 +28,5 @@ class PepperWatcher(Watcher):
                 file_content = f.read().replace('\n', '')
 
                 if file_content != articles:
-                    self.send_telegram(message_text)
+                    self.send_telegram(self.watcher_name, message_text)
             self.write_to_file(self.filename, articles)
