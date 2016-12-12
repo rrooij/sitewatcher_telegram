@@ -16,7 +16,7 @@ class TweakersWatcher(Watcher):
 
 
     def check_price_error(self):
-        url = 'https://tweakers.net/pricewatch/deals/#filter:q1ZKSaz0T0srTi1RsjLUUcpNrAhKzUksySxLDSjKTE51KcovgEhk5jkmFefnlJYgSxgZgGWcS4uKUvNKwBJKVhAxMKcYpheLoQZ6ZmCpsMzUcqA6g1oA'
+        url = 'https://tweakers.net/pricewatch/deals/#filter:q1ZKSaz0T0srTi1RsjLUUcpNrAhKzUksySxLDSjKTE51KcovgEhk5jkmFefnlJYgSxgbgGWcS4uKUvNKwBJKVhAxMKcYqATMw2KogZ4JWCosM7W8GKwrvygltcgtMzUnRclKKRHDtloA'
         message_text = 'Mogelijke prijsfout, check: {0}'.format(url)
         html = self.parse_site()
 
