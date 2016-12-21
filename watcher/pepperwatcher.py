@@ -6,12 +6,16 @@ from watcher.watcher import Watcher
 
 class PepperWatcher(Watcher):
     watcher_name = 'Pepper'
-    filename = 'site_pepper.txt'
+    filename = ''
+    search_keyword = 'prijsfout'
+
+    def generate_filename(self):
+        self.filename = 'site_pepper_{0}.txt'.format(self.search_keyword)
 
     def parse_site(self):
-        search_keyword = 'prijsfout'
+        generate_filename()
         cookies = dict(sort_by="eyJpdiI6InhLQVwvVjdpV01Sblc5clZJV3FUT1FDdDIxdm1OUHRFM2V0SnBtSmhOK2ZBPSIsInZhbHVlIjoiU1RKV3EwSzM0Q0QwSitOUkwrVzVNZUpPeVBMbEhqWEVMcCtlbldiWm1FOD0iLCJtYWMiOiJlZTI3Yzc2MGU3YzEwZTg1NDRjMDVhMWU5ZGE0MDkwYzU3YTAxNWU0OWQyZWRlOTg5NmUxOTgzYzA4M2QxOGQ3In0=")
-        result = requests.get("https://nl.pepper.com/search?q={0}".format(search_keyword), cookies=cookies)
+        result = requests.get("https://nl.pepper.com/search?q={0}".format(self.search_keyword), cookies=cookies)
         content = result.content
         soup = BeautifulSoup(content, 'html.parser')
         return soup.find_all('a', class_='thread-title-text', limit=1)[0].get_text()
