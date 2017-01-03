@@ -10,7 +10,7 @@ class TweakersWatcher(Watcher):
     filename = 'site_tweakers.txt'
 
     def parse_site(self):
-        url = 'https://tweakers.net/xmlhttp/xmlHttp.php?application=tweakbase&type=filter&action=deals&dayOffset=1&minRelativePriceDrop=0.4&maxRelativePriceDrop=1&minAbsolutePriceDrop=30&maxAbsolutePriceDrop=&minCurrentPrice=0&maxCurrentPrice=&minPrices=3&minViews=0&of=absolutePriceDrop&od=desc&output=json'
+        url = 'https://tweakers.net/xmlhttp/xmlHttp.php?application=tweakbase&type=filter&action=deals&dayOffset=1&minRelativePriceDrop=0.4&maxRelativePriceDrop=1&minAbsolutePriceDrop=30&maxAbsolutePriceDrop=&minCurrentPrice=0&maxCurrentPrice=&minPrices=3&minViews=0&pageSize=10000&of=absolutePriceDrop&od=desc&output=json'
         request = requests.get(url)
         json_object = json.loads(request.text)
         soup = BeautifulSoup(json_object['data']['html'], 'html.parser')
