@@ -11,7 +11,7 @@ class Watcher:
     def send_telegram(self, watcher_name, message):
         chat_ids = config.chat_ids
         for chat_id in chat_ids:
-            payload = { 'chat_id': chat_id, 'text': '[{0}]: {1}'.format(watcher_name, message) }
+            payload = { 'chat_id': chat_id, 'parse_mode': 'Markdown', 'text': '[{0}]: {1}'.format(watcher_name, message) }
             requests.get("https://api.telegram.org/bot{0}/sendMessage".format(config.bot_password), params=payload)
 
     def parse_site(self):
