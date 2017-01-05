@@ -20,8 +20,11 @@ class TweakersWatcher(Watcher):
         products = []
         for product_row in product_rows:
             product_a_tag = product_row.find('a', class_='product')
-            product_descr = product_row.find('p', class_='specline').find('a').get_text()
-            product = { 'title': product_a_tag['title'], 'descr': product_descr, 'url': product_a_tag['href'] }
+            product_descr = product_row.find('p', class_='specline ellipsis').find('a').get_text()
+            previous_price = product_row.find('s').get_text()
+            price = product_row.find('p', class_='price').find('a').get_text()
+            product = { 'title': product_a_tag['title'], 'descr': product_descr,
+                        'url': product_a_tag['href'], 'price': price, 'prev_price': previous_price }
             products.append(product)
         return products
 
@@ -39,8 +42,9 @@ class TweakersWatcher(Watcher):
                 for product in products:
                     if not product['title'] in products_from_file:
                         message_text = (
-                            'Mogelijke prijsfout, product: [{0}]({1}) , beschrijving: {2} check: {3}'
-                            .format(product['title'], product['url'], product['descr'], url)
+                                'Mogelijke prijsfout, product: [{0}]({1}) , beschrijving: {2}. Vorige prijs: {3}, nieuwe prijs: {4}. Check: {5}'
+                                .format(product['title'], product['url'], product['descr'], product['prev_price'], product['price'], url)
                         )
-                        self.send_telegram(self.watcher_name, message_text)
+                        print(message_text)
+                        #self.send_telegram(self.watcher_name, message_text)
             self.write_to_file(self.filename, products_string)
