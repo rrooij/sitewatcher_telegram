@@ -42,9 +42,9 @@ class TweakersWatcher(Watcher):
                 for product in products:
                     if not product['title'] in products_from_file:
                         message_text = (
-                                'Mogelijke prijsfout, product: [{0}]({1}) , beschrijving: {2}. Vorige prijs: {3}, nieuwe prijs: {4}. Check: {5}'
+                                'Mogelijke prijsfout, product: [{0}]({1}) \n'
+                                 'Beschrijving: {2}.\nVorige prijs: {3} \nNieuwe prijs: {4} \nCheck: {5}'
                                 .format(product['title'], product['url'], product['descr'], product['prev_price'], product['price'], url)
                         )
-                        print(message_text)
-                        #self.send_telegram(self.watcher_name, message_text)
+                        self.send_telegram(self.watcher_name, message_text)
             self.write_to_file(self.filename, products_string)
