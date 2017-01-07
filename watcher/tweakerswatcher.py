@@ -20,7 +20,10 @@ class TweakersWatcher(Watcher):
         products = []
         for product_row in product_rows:
             product_a_tag = product_row.find('a', class_='product')
-            product_descr = product_row.find('p', class_='specline ellipsis').find('a').get_text()
+            specline = product_row.find('p', class_='specline ellipsis')
+            product_descr = ''
+            if (specline is not None):
+                product_descr = specline.find('a').get_text()
             previous_price = product_row.find('s').get_text()
             price = product_row.find('p', class_='price').find('a').get_text()
             product = { 'title': product_a_tag['title'], 'descr': product_descr,
