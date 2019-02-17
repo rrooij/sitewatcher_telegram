@@ -20,7 +20,7 @@ class PepperWatcher(Watcher):
         result = requests.get(self.url, cookies=cookies)
         content = result.content
         soup = BeautifulSoup(content, 'html.parser')
-        return soup.find_all('a', class_='thread-title-text', limit=1)[0].get_text()
+        return soup.find_all('a', class_='thread-title--card', limit=1)[0]['title']
 
     def check_price_error(self):
         articles = self.parse_site()
